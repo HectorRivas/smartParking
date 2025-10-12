@@ -1,0 +1,17 @@
+{
+  "name": "smart-parking",
+  "private": true,
+  "scripts": {
+    "start:frontend": "cd frontend && npx expo start",
+    "start:backend": "cd backend && node src/index.js",
+    "start:all": "concurrently \"npm run start:frontend\" \"npm run start:backend\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
+  "dependencies": {
+    "@expo-google-fonts/inter": "^0.4.2",
+    "@expo-google-fonts/montserrat": "^0.4.2",
+    "expo-font": "^14.0.9"
+  }
+}
