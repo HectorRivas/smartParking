@@ -250,8 +250,8 @@ export default function ConfiguracionScreen() {
   // --- Contenido de Configuración ---
   return (
     <ScreenWrapper>
-      <ScrollView
-  className="flex-1" // Ocupa todo el espacio vertical
+    <ScrollView
+  className="flex-1" /* Ocupa todo el espacio vertical */
         contentContainerStyle={{
           alignItems: "center", // Centra horizontalmente
           paddingVertical: 20,
@@ -341,15 +341,15 @@ export default function ConfiguracionScreen() {
           }}
         />
       </ScrollView>
-      // Modal: editar información de usuario
+  {/* Modal: editar información de usuario */}
       <FormModal
         visible={isEditModalVisible}
         onClose={handleCloseModal}
-        title="Editar Información de Cuenta" // Título dinámico
-        formConfig={userFormConfig} // 👈 Pasamos la configuración
+        title="Editar Información de Cuenta" /* Título dinámico */
+        formConfig={userFormConfig} /* Pasamos la configuración */
         onSave={handleSaveUserInfo}
       />
-  // Modal: agregar nueva tarjeta
+    {/* Modal: agregar nueva tarjeta */}
       <FormModal
         visible={isCardModalVisible}
         onClose={() => setIsCardModalVisible(false)}
@@ -357,7 +357,7 @@ export default function ConfiguracionScreen() {
         formConfig={cardFormConfig}
         onSave={handleSaveNewCard} // Función que maneja la lógica de guardar
       />
-  // Modal: cambiar contraseña
+    {/* Modal: cambiar contraseña */}
       <FormModal
         visible={isChangePasswordModalVisible}
         onClose={() => setIsChangePasswordModalVisible(false)}

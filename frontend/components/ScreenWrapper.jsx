@@ -14,15 +14,20 @@ export default function ScreenWrapper({ children, backgroundColor = "#F2F2F2" })
       */}
       {Platform.OS === "android" && (
         <RNStatusBar
-          backgroundColor={statusBarColor} // Establece el color de fondo de la barra de estado de Android
-          barStyle="light-content" // Asegura que los íconos (hora, batería) sean blancos
+          backgroundColor={statusBarColor}
+          /* Establece el color de fondo de la barra de estado de Android */
+          barStyle="light-content"
+          /* Asegura que los íconos (hora, batería) sean blancos */
         />
       )}
       {/* Ajuste para iOS: la StatusBar de RN no cambia el color de fondo, pero barStyle sí los íconos.
         Para iOS, el color de fondo de la zona de la barra de estado lo dará el SafeAreaView.
       */}
       {Platform.OS === "ios" && (
-        <RNStatusBar barStyle="light-content" /> // Asegura que los íconos (hora, batería) sean blancos
+        <RNStatusBar
+          barStyle="light-content"
+          /* Asegura que los íconos (hora, batería) sean blancos */
+        />
       )}
 
       {/* Aseguramos que el SafeAreaView ocupe toda la pantalla y su fondo superior
