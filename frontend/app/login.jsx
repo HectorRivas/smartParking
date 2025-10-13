@@ -33,7 +33,7 @@ export default function LoginScreen() {
     }
 
     try {
-      setLoading(true);
+  setLoading(true);
       const response = await fetch(
         "http://192.168.100.81:4000/api/users/login",
         {
@@ -47,7 +47,7 @@ export default function LoginScreen() {
 
       if (!response.ok) {
         Alert.alert("Error", data.message || "Correo o contraseña incorrectos");
-        return; // No hace falta setLoading(false) aquí si ya está en finally
+        return;
       }
 
       // Guardar usuario en AsyncStorage
@@ -64,7 +64,7 @@ export default function LoginScreen() {
       // Redirigir a QR
       router.replace("/(tabs)/qr");
     } catch (error) {
-      console.error(error);
+      // Error de conexión al servidor
       Alert.alert("Error", "No se pudo conectar al servidor");
     } finally {
       setLoading(false);

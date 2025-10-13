@@ -80,8 +80,8 @@ function RegisterContent() {
         Alert.alert("Error", data.message || "No se pudo registrar el usuario.");
       }
     } catch (error) {
+      // Error de conexión al servidor
       Alert.alert("Error", "No se pudo conectar con el servidor.");
-      console.error(error);
     }
   };
 

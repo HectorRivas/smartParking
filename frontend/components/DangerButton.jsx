@@ -53,9 +53,6 @@ export default function DangerButton({
           shadowOpacity: 0.25,
           shadowRadius: 3.84,
           marginVertical: 8,
-          width: "90%",
-          maxWidth: 400,
-          alignSelf: "center",
 
         }}
       >

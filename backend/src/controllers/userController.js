@@ -44,6 +44,9 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ message: "Usuario y contraseña son requeridos" });
     }
 
+    console.log("Datos recibidos:", req.body);
+    console.log("Conectando a MongoDB con URI:", process.env.MONGO_URI);
+
     // 1. Búsqueda de usuario (forzando solo la contraseña para la validación)
     const user = await User.findOne({ correo }).select('+contraseña'); 
 
