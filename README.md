@@ -1,76 +1,78 @@
-# smart-parking
-Aplicación móvil para gestionar un estacionamiento local con QR, reservaciones, historial de visitas y pasarela de pagos.
+# 🚗 Smart Parking — Aplicación de Gestión Inteligente de Estacionamientos
 
-## 🚀 Cómo empezar
+[![Expo](https://img.shields.io/badge/Expo-React%20Native-blue)](https://expo.dev/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build](https://img.shields.io/badge/build-passing-brightgreen)]()
+[![Version](https://img.shields.io/badge/version-1.0.0-orange)]()
 
-Sigue estos pasos para ejecutar el proyecto en tu entorno local.
+**Smart Parking** es una aplicación móvil desarrollada con **React Native** y **Expo** que permite gestionar estacionamientos locales mediante el uso de **códigos QR**, **reservaciones en tiempo real**, **historial de visitas**, y una **pasarela de pagos integrada**.  
 
-### Prerrequisitos
+El objetivo principal es optimizar la administración de espacios y mejorar la experiencia del usuario mediante el uso de tecnología inteligente y sustentable.
 
-Asegúrate de tener instalados los siguientes programas:
+---
 
-* **Node.js**: [https://nodejs.org/](https://nodejs.org/)
-* **npm** (incluido con Node.js) o **Yarn**: [https://classic.yarnpkg.com/](https://classic.yarnpkg.com/)
-* **Expo CLI**: Puedes instalarlo globalmente con `npm install -g expo-cli`
+## 🧭 Índice
 
-### Instalación
+- [🌟 Misión del Proyecto](#-misión-del-proyecto)
+- [⚙️ Tecnologías Utilizadas](#️-tecnologías-utilizadas)
+- [🧩 Características Principales](#-características-principales)
+- [🚀 Cómo Empezar](#-cómo-empezar)
+  - [📋 Prerrequisitos](#-prerrequisitos)
+  - [⚙️ Instalación](#️-instalación)
+  - [▶️ Ejecución](#️-ejecución)
+- [📁 Estructura del Proyecto](#-estructura-del-proyecto)
+- [🧠 Arquitectura del Sistema](#-arquitectura-del-sistema)
+- [🧾 API y Servicios](#-api-y-servicios)
+- [🤝 Contribución](#-contribución)
+- [📜 Licencia](#-licencia)
+- [👨‍💻 Autor](#-autor)
+- [⭐ Apoya el Proyecto](#-apoya-el-proyecto)
 
-1.  Clona el repositorio:
+---
 
-    ```bash
-    git clone [https://github.com/HectorRivas/smart-parking.git](https://github.com/HectorRivas/smart-parking.git)
-    ```
+## 🌟 Misión del Proyecto
 
-2.  Navega al directorio del proyecto:
+**Smart Parking** tiene como misión transformar la forma en que los estacionamientos locales operan y son gestionados, ofreciendo una **solución digital integral** que incremente la eficiencia, reduzca tiempos de espera y mejore la experiencia de los usuarios a través de una **plataforma móvil inteligente**.
 
-    ```bash
-    cd smart-parking
-    ```
+---
 
-3.  Instala las dependencias:
+## ⚙️ Tecnologías Utilizadas
 
-    ```bash
-    npm install
-    # o
-    yarn install
+| Categoría | Tecnología | Descripción |
+|------------|-------------|--------------|
+| **Frontend** | React Native + Expo | Desarrollo móvil multiplataforma |
+| **Backend** | Node.js / Express | API REST para gestión de usuarios y reservas |
+| **Base de Datos** | Firebase / MongoDB | Almacenamiento en la nube de datos y usuarios |
+| **Autenticación** | Firebase Auth | Control de acceso y seguridad de cuentas |
+| **Pagos** | Stripe / MercadoPago API | Pasarela de pagos segura y moderna |
+| **Versionamiento** | Git / GitHub | Control de versiones y colaboración |
+| **Diseño UI/UX** | Figma / Styled Components | Interfaz moderna e intuitiva |
 
-    #En caso de error con la instalcion de depencias, ejecuta lo siguiente
-    npm install --force 
-    # 0
-    npm install --legacy-peer-deps
-    ```
+---
 
-### Ejecutar la aplicación
+## 🧩 Características Principales
 
-Para iniciar la aplicación, ejecuta el siguiente comando:
+- 🔐 **Inicio de sesión seguro** con Firebase.
+- 🅿️ **Reservación de lugares** en tiempo real.
+- 📷 **Escaneo de códigos QR** para entrada/salida del estacionamiento.
+- 💳 **Pagos electrónicos** integrados.
+- 📊 **Historial de visitas** y recibos automáticos.
+- 🌙 **Modo oscuro / claro** adaptable.
+- 🌐 **Soporte multiplataforma** (Android / iOS / Web).
+- ☁️ **Sincronización con la nube** y base de datos en tiempo real.
 
+---
+
+## 🚀 Cómo Empezar
+
+### 📋 Prerrequisitos
+
+Antes de comenzar, asegúrate de tener instalados:
+
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/) o [Yarn](https://classic.yarnpkg.com/)
+- [Expo CLI](https://docs.expo.dev/get-started/installation/)
+
+Instala Expo CLI globalmente:
 ```bash
-npm start
-# o
-npx expo start
-Esto abrirá Expo Dev Tools en tu navegador. Puedes escanear el código QR con la aplicación Expo Go en tu teléfono para ver la aplicación o usar un emulador/simulador.
-
-📁 Estructura del proyecto
-App.js: El archivo principal de tu aplicación, donde se encuentra la lógica de la UI.
-
-package.json: Contiene la información del proyecto y sus dependencias.
-
-app.json: Configuración de tu aplicación de Expo.
-
-🤝 Contribución
-Si quieres contribuir a este proyecto, por favor sigue los siguientes pasos:
-
-Haz un "fork" del repositorio.
-
-Crea una nueva rama: git checkout -b feature/nombre-de-tu-caracteristica
-
-Realiza tus cambios y haz "commit" de ellos: git commit -m 'feat: agrega una nueva característica'
-
-Sube tus cambios a la rama: git push origin feature/nombre-de-tu-caracteristica
-
-Crea un "Pull Request".
-
-📜 Licencia
-<<<<<<< HEAD
-Este proyecto está bajo la licencia [MIT].
-
+npm install -g expo-cli
