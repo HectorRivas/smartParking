@@ -56,6 +56,14 @@ export default function App() {
               </Text>
             </Link>
           </View>
+          // Solo para pruebas rápidas
+          <View className="justify-center items-center mt-6 w-full">
+            <Link asChild href="/CrearCajon">
+              <Text className="text-[#3F83BF] text-lg font-bold underline mt-2">
+                Crear Cajón
+              </Text>
+            </Link>
+          </View>
         </View>
       </View>
     </SafeAreaProvider>

@@ -3,6 +3,9 @@ import express from "express";
 import cors from "cors";
 import { connectDB } from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
+import parkingRoutes from "./routes/parking.js";
+import reservationsRoutes from "./routes/reservations.js";
+import spotRoutes from "./routes/spotRoutes.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -14,6 +17,9 @@ app.use(express.json());
 
 // Rutas
 app.use("/api/users", userRoutes);
+app.use("/api/parking", parkingRoutes);
+app.use("/api/reservations", reservationsRoutes);
+app.use("/api/spots", spotRoutes);
 
 // Conexión DB
 connectDB();

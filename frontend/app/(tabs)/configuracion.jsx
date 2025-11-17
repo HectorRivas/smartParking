@@ -28,16 +28,17 @@ export default function ConfiguracionScreen() {
 
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [isCardModalVisible, setIsCardModalVisible] = useState(false);
-  const [isChangePasswordModalVisible, setIsChangePasswordModalVisible] = useState(false);
+  const [isChangePasswordModalVisible, setIsChangePasswordModalVisible] =
+    useState(false);
   const handleCloseModal = () => setIsEditModalVisible(false);
   const handleOpenModal = () => setIsEditModalVisible(true);
 
   // Formato de número de tarjeta: inserta un espacio cada 4 dígitos
   const formatCardNumber = (text) => {
-  // Limpia el texto (solo dígitos)
+    // Limpia el texto (solo dígitos)
     const cleanText = text.replace(/[^0-9]/g, "");
 
-  // Inserta espacios cada 4 dígitos
+    // Inserta espacios cada 4 dígitos
     let formattedText = "";
     for (let i = 0; i < cleanText.length; i++) {
       if (i > 0 && i % 4 === 0) {
@@ -46,16 +47,16 @@ export default function ConfiguracionScreen() {
       formattedText += cleanText[i];
     }
 
-  // Limita a 19 caracteres (16 dígitos + 3 espacios)
+    // Limita a 19 caracteres (16 dígitos + 3 espacios)
     return formattedText.substring(0, 19);
   };
 
   // Formato de expiración MM/AA
   const formatExpiryDate = (text) => {
-  // Limpia el texto (solo dígitos)
+    // Limpia el texto (solo dígitos)
     const cleanText = text.replace(/[^0-9]/g, "");
 
-  // Aplica formato "MM/AA"
+    // Aplica formato "MM/AA"
     let formattedText = cleanText;
 
     if (cleanText.length > 2) {
@@ -74,7 +75,7 @@ export default function ConfiguracionScreen() {
       label: "Nombre Completo",
       placeholder: "Ingresa tu nombre",
       icon: "person-outline",
-    value: userName, // valor inicial
+      value: userName, // valor inicial
       required: true,
       editable: false, // Campo de solo lectura
       font: "inter",
@@ -86,7 +87,7 @@ export default function ConfiguracionScreen() {
       icon: "mail-outline",
       keyboardType: "email-address",
       editable: true, // Campo editable
-  value: userEmail, // valor inicial
+      value: userEmail, // valor inicial
       required: true,
       font: "inter",
     },
@@ -96,7 +97,7 @@ export default function ConfiguracionScreen() {
       placeholder: "55 1234 5678",
       icon: "call-outline",
       keyboardType: "phone-pad",
-  value: userPhone, // valor inicial
+      value: userPhone, // valor inicial
       required: true,
       font: "inter",
       editable: true, // Campo editable
@@ -110,10 +111,10 @@ export default function ConfiguracionScreen() {
       placeholder: "XXXX XXXX XXXX XXXX",
       icon: "card-outline",
       keyboardType: "numeric",
-  // Max 19 para 16 dígitos + 3 espacios
+      // Max 19 para 16 dígitos + 3 espacios
       maxLength: 19,
       required: true,
-  // Función de formato para enmascarar
+      // Función de formato para enmascarar
       formatFunction: formatCardNumber,
     },
     {
@@ -130,10 +131,10 @@ export default function ConfiguracionScreen() {
       placeholder: "MM/AA",
       icon: "calendar-outline",
       keyboardType: "numeric",
-  // Max 5 (MM/AA)
+      // Max 5 (MM/AA)
       maxLength: 5,
       required: true,
-  // Función de formato para enmascarar
+      // Función de formato para enmascarar
       formatFunction: formatExpiryDate,
     },
     {
@@ -143,7 +144,7 @@ export default function ConfiguracionScreen() {
       icon: "lock-closed-outline",
       keyboardType: "numeric",
       secureTextEntry: true,
-  // CVV: 3 o 4 dígitos (máx. 4)
+      // CVV: 3 o 4 dígitos (máx. 4)
       maxLength: 4,
       required: true,
     },
@@ -174,7 +175,7 @@ export default function ConfiguracionScreen() {
       icon: "lock-closed-outline",
       keyboardType: "secure-text",
       secureTextEntry: true,
-      required: true, 
+      required: true,
     },
   ];
 
@@ -205,7 +206,10 @@ export default function ConfiguracionScreen() {
     const { currentPassword, newPassword, confirmNewPassword } = passwordData;
     // Validación básica
     if (newPassword !== confirmNewPassword) {
-      Alert.alert("Error", "La nueva contraseña y su confirmación no coinciden.");
+      Alert.alert(
+        "Error",
+        "La nueva contraseña y su confirmación no coinciden."
+      );
       return;
     }
   };
@@ -236,7 +240,7 @@ export default function ConfiguracionScreen() {
   }, []);
 
   if (loading) {
-  // Nota: ScreenWrapper contiene un View con flex-1 — correcto para carga.
+    // Nota: ScreenWrapper contiene un View con flex-1 — correcto para carga.
     return (
       <ScreenWrapper backgroundColor="#F2F2F2">
         <View className="flex-1 justify-center items-center bg-[#F2F2F2]">
@@ -250,8 +254,8 @@ export default function ConfiguracionScreen() {
   // --- Contenido de Configuración ---
   return (
     <ScreenWrapper>
-    <ScrollView
-  className="flex-1" /* Ocupa todo el espacio vertical */
+      <ScrollView
+        className="flex-1" /* Ocupa todo el espacio vertical */
         contentContainerStyle={{
           alignItems: "center", // Centra horizontalmente
           paddingVertical: 20,
@@ -313,9 +317,7 @@ export default function ConfiguracionScreen() {
           <SecondaryButton
             title="Cambiar contraseña"
             icon="shield-checkmark-outline"
-            onPress={() =>
-              setIsChangePasswordModalVisible(true)
-            }
+            onPress={() => setIsChangePasswordModalVisible(true)}
             className="mt-4 bg-[#3F8EBF]"
           />
         </CardInfo>
@@ -341,7 +343,7 @@ export default function ConfiguracionScreen() {
           }}
         />
       </ScrollView>
-  {/* Modal: editar información de usuario */}
+      {/* Modal: editar información de usuario */}
       <FormModal
         visible={isEditModalVisible}
         onClose={handleCloseModal}
@@ -349,7 +351,7 @@ export default function ConfiguracionScreen() {
         formConfig={userFormConfig} /* Pasamos la configuración */
         onSave={handleSaveUserInfo}
       />
-    {/* Modal: agregar nueva tarjeta */}
+      {/* Modal: agregar nueva tarjeta */}
       <FormModal
         visible={isCardModalVisible}
         onClose={() => setIsCardModalVisible(false)}
@@ -357,7 +359,7 @@ export default function ConfiguracionScreen() {
         formConfig={cardFormConfig}
         onSave={handleSaveNewCard} // Función que maneja la lógica de guardar
       />
-    {/* Modal: cambiar contraseña */}
+      {/* Modal: cambiar contraseña */}
       <FormModal
         visible={isChangePasswordModalVisible}
         onClose={() => setIsChangePasswordModalVisible(false)}

@@ -6,28 +6,34 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import CardInfo from "../../components/CardInfo";
 
 export default function QRScreen() {
-  const [userId, setUserId] = useState("");
   const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(true);
+  const [reservation, setReservation] = useState(null);
 
   useEffect(() => {
-    const loadUser = async () => {
+    const loadData = async () => {
       try {
+        // Cargar usuario
         const userData = await AsyncStorage.getItem("user");
         if (userData) {
           const user = JSON.parse(userData);
-          setUserId(user.id);
           setUserName(user.nombre.split(" ")[0]); // primer nombre
-        } else {
-          Alert.alert("Error de sesión", "No se encontró sesión de usuario.");
+        }
+
+        // Cargar reservación activa
+        const resData = await AsyncStorage.getItem("reservation");
+        if (resData) {
+          setReservation(JSON.parse(resData));
         }
       } catch (error) {
-        console.error("Error al cargar el usuario:", error);
+        console.error(error);
+        Alert.alert("Error", "No se pudo cargar la información.");
       } finally {
         setLoading(false);
       }
     };
-    loadUser();
+
+    loadData();
   }, []);
 
   if (loading) {
@@ -41,8 +47,18 @@ export default function QRScreen() {
     );
   }
 
-  return (
+  if (!reservation) {
+    return (
       <ScreenWrapper>
+        <View className="flex-1 justify-center items-center">
+          <Text>No tienes reservaciones activas</Text>
+        </View>
+      </ScreenWrapper>
+    );
+  }
+
+  return (
+    <ScreenWrapper>
       <View className="flex-1 items-center w-full pt-8 mt-4">
         {/* Saludo */}
         <Text className="text-[#073A59] text-2xl font-inter-bold mb-8">
@@ -63,7 +79,7 @@ export default function QRScreen() {
               }}
             >
               <QRCode
-                value={userId || "sin_id"}
+                value={reservation.qrCode || "sin_qr"}
                 size={240}
                 color="#073A59"
                 backgroundColor="transparent"
@@ -75,7 +91,7 @@ export default function QRScreen() {
                 textAlign: "center",
                 marginHorizontal: 12,
               }}
-              className={'font-inter-semibold'}
+              className={"font-inter-semibold"}
             >
               Muestra este QR al ingresar o salir del estacionamiento para
               registrar tu estancia.
