@@ -2,6 +2,8 @@ import React, { useState, forwardRef } from "react";
 import { View, Text, TextInput, Animated } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
+// Componente: InputField
+// Campo de texto reusable con icono, estilo animado para foco y modo solo-lectura.
 const InputField = forwardRef(
   (
     {
@@ -16,9 +18,7 @@ const InputField = forwardRef(
       returnKeyType,
       onSubmitEditing,
       maxLength,
-      // 🔑 Propiedad clave para la flexibilidad (editable por defecto)
       editable = true,
-      // 🔑 Captura el resto de las props para pasarlas al TextInput (ej: autoCapitalize)
       ...restProps
     },
     ref
@@ -26,9 +26,8 @@ const InputField = forwardRef(
     const [isFocused, setIsFocused] = useState(false);
     const animatedBorder = useState(new Animated.Value(0))[0];
 
-    // Manejadores de foco y desenfoque
+    // Manejo de foco: anima el borde cuando el campo es editable
     const handleFocus = () => {
-      // Solo anima si es editable
       if (!editable) return;
       setIsFocused(true);
       Animated.timing(animatedBorder, {
@@ -39,7 +38,6 @@ const InputField = forwardRef(
     };
 
     const handleBlur = () => {
-      // Solo anima si es editable
       if (!editable) return;
       setIsFocused(false);
       Animated.timing(animatedBorder, {
@@ -49,16 +47,12 @@ const InputField = forwardRef(
       }).start();
     };
 
-    // Interpolación de color para el borde enfocado
     const focusedBorderColor = animatedBorder.interpolate({
       inputRange: [0, 1],
-      outputRange: ["#d1d5db", "#3F83BF"], // gris a azul
+      outputRange: ["#d1d5db", "#3F83BF"],
     });
 
-    // 🔑 Lógica del Borde y Color del Icono para modo editable/no editable
-    // El borde es gris estático si NO es editable, sino usa el color animado.
-    const finalBorderColor = editable ? focusedBorderColor : "#e5e7eb"; // gray-200 aprox
-    // El icono se colorea en azul solo si está enfocado Y es editable.
+    const finalBorderColor = editable ? focusedBorderColor : "#e5e7eb";
     const iconColor = isFocused && editable ? "#3F83BF" : "#9CA3AF";
 
     return (
@@ -69,22 +63,18 @@ const InputField = forwardRef(
           </Text>
         )}
 
-        {/* Contenedor Animado */}
         <Animated.View
           style={{
             borderWidth: 2,
-            // 🔑 Usa el color fijo o animado
             borderColor: finalBorderColor,
             borderRadius: 25,
             flexDirection: "row",
             alignItems: "center",
             paddingHorizontal: 16,
             paddingVertical: 2,
-            // 🔑 Cambia el fondo a gris si NO es editable (UX de solo lectura)
-            backgroundColor: editable ? "transparent" : "#f3f4f6", // light gray
+            backgroundColor: editable ? "transparent" : "#f3f4f6",
           }}
         >
-          {/* Icono */}
           {icon && (
             <Ionicons
               name={icon}
@@ -94,7 +84,6 @@ const InputField = forwardRef(
             />
           )}
 
-          {/* Componente TextInput */}
           <TextInput
             ref={ref}
             placeholder={placeholder}
@@ -102,22 +91,19 @@ const InputField = forwardRef(
             keyboardType={keyboardType}
             inputMode={inputMode}
             value={value}
-            // El onChangeText solo es efectivo si editable es true (aunque el SO lo restringe, es buena práctica)
             onChangeText={onChangeText}
-            // 🔑 Solo permite el foco si es editable
             onFocus={editable ? handleFocus : undefined}
             onBlur={editable ? handleBlur : undefined}
             returnKeyType={returnKeyType}
             onSubmitEditing={onSubmitEditing}
             maxLength={maxLength}
-            editable={editable} // 🔑 Pasa la prop editable al TextInput
-            {...restProps} // Pasa cualquier otra prop extra
+            editable={editable}
+            {...restProps}
             style={{
               flex: 1,
               fontSize: 16,
               paddingVertical: 10,
-              // 🔑 Color de texto: gris si no es editable, oscuro si lo es
-              color: editable ? "#111827" : "#6b7280", // dark gray
+              color: editable ? "#111827" : "#6b7280",
             }}
             className="font-inter"
             placeholderTextColor="#9CA3AF"

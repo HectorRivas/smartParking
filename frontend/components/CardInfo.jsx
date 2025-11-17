@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text } from "react-native";
 
+// Componente: CardInfo
+// Tarjeta simple para agrupar información con estilo consistente.
 export default function CardInfo({
   title,
   children,

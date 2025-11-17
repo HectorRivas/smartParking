@@ -1,14 +1,5 @@
 import React, { useState, useRef } from "react";
-import {
-  View,
-  Text,
-  Pressable,
-  Image,
-  Platform,
-  KeyboardAvoidingView,
-  ScrollView,
-  Alert,
-} from "react-native";
+import { View, Text, Pressable, Image, Platform, KeyboardAvoidingView, ScrollView, Alert } from "react-native";
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
@@ -19,6 +10,8 @@ import ScreenWrapper from "../components/ScreenWrapper";
 import InputField from "../components/InputField";
 import PrimaryButton from "../components/PrimaryButton";
 
+// Pantalla: Register
+// Permite crear una nueva cuenta de usuario.
 export default function RegisterScreen() {
   return (
     <SafeAreaProvider>
@@ -31,20 +24,20 @@ function RegisterContent() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
 
-  // --- Estado de los campos del formulario ---
+  // Estado de los campos del formulario
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
   const [telefono, setTelefono] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [confirmar, setConfirmar] = useState("");
 
-  // --- Referencias para los inputs (para avanzar automáticamente) ---
+  // Referencias para los inputs (para avanzar automáticamente)
   const correoRef = useRef();
   const telefonoRef = useRef();
   const passwordRef = useRef();
   const confirmarRef = useRef();
 
-  // --- Función para manejar el registro ---
+  // Maneja el registro y navegación al iniciar sesión
   const handleRegister = async () => {
     if (!nombre || !correo || !contraseña) {
       Alert.alert("Error", "Por favor completa todos los campos obligatorios.");

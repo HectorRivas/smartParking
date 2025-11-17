@@ -4,6 +4,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import ScreenWrapper from "../../components/ScreenWrapper";
 import CardInfo from "../../components/CardInfo";
 
+// Pantalla: Historial
+// Muestra las reservaciones del usuario autenticado.
 export default function HistorialScreen() {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);

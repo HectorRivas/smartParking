@@ -2,6 +2,8 @@ import React from "react";
 import { Pressable, Text, Animated } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
+// Componente: SecondaryButton
+// Botón secundario con borde y soporte de icono.
 export default function SecondaryButton({
   title,
   onPress,

@@ -2,6 +2,8 @@ import React from "react";
 import { Pressable, Text, Animated } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
+// Componente: SuccessButton
+// Botón para acciones positivas (confirmar), animado.
 export default function SuccessButton({
   title,
   onPress,

@@ -2,6 +2,8 @@ import React from "react";
 import { Pressable, Text, Animated } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
+// Componente: PrimaryButton
+// Botón principal con animación de escala y soporte de icono.
 export default function PrimaryButton({
   title,
   onPress,

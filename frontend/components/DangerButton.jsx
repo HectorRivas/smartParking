@@ -2,6 +2,8 @@ import React from "react";
 import { Pressable, Text, Animated } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
+// Componente: DangerButton
+// Botón para acciones destructivas (eliminar), animado.
 export default function DangerButton({
   title,
   onPress,

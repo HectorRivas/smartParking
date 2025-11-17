@@ -1,16 +1,5 @@
 import React, { useState, useRef } from "react";
-import {
-  View,
-  Text,
-  Pressable,
-  TextInput,
-  KeyboardAvoidingView,
-  ScrollView,
-  Platform,
-  Alert,
-  Image,
-  ActivityIndicator, // 💡 Agregado
-} from "react-native";
+import { View, Text, Pressable, TextInput, KeyboardAvoidingView, ScrollView, Platform, Alert, Image, ActivityIndicator } from "react-native";
 import { useRouter, Link } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ScreenWrapper from "../components/ScreenWrapper";
@@ -18,6 +7,8 @@ import QR from "../assets/QR4.png";
 import InputField from "../components/InputField";
 import PrimaryButton from "../components/PrimaryButton";
 
+// Pantalla: Login
+// Maneja autenticación del usuario y navegación al flujo principal.
 export default function LoginScreen() {
   const router = useRouter();
   const [correo, setCorreo] = useState("");
