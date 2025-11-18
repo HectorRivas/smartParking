@@ -25,6 +25,7 @@ export default function RootLayout() {
         <Stack.Screen name="login" />
         <Stack.Screen name="register" />
         <Stack.Screen name="terms" />
+        <Stack.Screen name="scan" />
         <Stack.Screen name="(tabs)" />
       </Stack>
     </SafeAreaProvider>

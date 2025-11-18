@@ -7,8 +7,8 @@ const reservationSchema = new mongoose.Schema({
   fechaFin: { type: Date, required: true },
   estado: {
     type: String,
-    enum: ["activa", "completada", "cancelada"],
-    default: "activa",
+    enum: ["reservado", "activa", "completada", "cancelada"],
+    default: "reservado",
   },
   qrCode: { type: String, unique: true }, // nuevo campo para generar QR
 });

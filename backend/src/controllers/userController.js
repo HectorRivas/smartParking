@@ -67,9 +67,10 @@ export const loginUser = async (req, res) => {
     
     const userResponse = {
       id: cleanUser._id,
-      nombre: cleanUser.nombre, // Ahora debe tomar el valor del objeto limpio
+      nombre: cleanUser.nombre,
       correo: cleanUser.correo,
       telefono: cleanUser.telefono,
+      isAdmin: cleanUser.isAdmin,
     };
   
 

@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { View, Text, Image, Platform } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";  
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import { Link } from "expo-router";
 import QR from "../assets/QR4.png";
@@ -55,9 +55,8 @@ export default function App() {
                 Términos y condiciones
               </Text>
             </Link>
-          </View>
-          // Solo para pruebas rápidas
-          <View className="justify-center items-center mt-6 w-full">
+
+            {/* Solo para pruebas rápidas */}
             <Link asChild href="/CrearCajon">
               <Text className="text-[#3F83BF] text-lg font-bold underline mt-2">
                 Crear Cajón

@@ -7,11 +7,25 @@ const router = express.Router();
 // Crear una reservación
 router.post("/", async (req, res) => {
   try {
-    const { userId, slotId, fechaInicio, fechaFin } = req.body;
+    const { userId, slotId } = req.body;
 
-    // Validar si el cajón existe y está libre
+    // Verificar si el usuario ya tiene una reservación activa o reservada
+    const reservacionActiva = await Reservation.findOne({
+      userId,
+      estado: { $in: ["reservado", "activa"] },   // ✅ CORRECTO
+    });
+
+    if (reservacionActiva) {
+      return res.status(400).json({
+        error:
+          "Ya tienes una reservación activa. Debes concluirla antes de reservar otro cajón.",
+      });
+    }
+
+    // Validar cajón
     const slot = await ParkingSlot.findById(slotId);
     if (!slot) return res.status(404).json({ error: "Cajón no encontrado" });
+
     if (slot.estado !== "libre") {
       return res.status(400).json({ error: "El cajón no está disponible" });
     }
@@ -20,30 +34,40 @@ router.post("/", async (req, res) => {
     const reservation = new Reservation({
       userId,
       slotId,
-      fechaInicio,
-      fechaFin,
+      fechaInicio: null,
+      fechaFin: null,
+      estado: "reservado",
     });
+
     await reservation.save();
 
-    // Marcar cajón como reservado
+    // Cambiar estado del slot
     slot.estado = "reservado";
     await slot.save();
 
-    // Generar QR (simple ejemplo, usar ID de la reservación como valor)
+    // Asignar QR (id simple)
     const qrValue = reservation._id.toString();
+    reservation.qrCode = qrValue;
+    await reservation.save();
 
-    res.json({ message: "Reservación creada", reservation, qrValue });
+    res.json({
+      message: "Reservación creada",
+      reservation,
+      qrValue,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error al crear la reservación" });
   }
 });
 
-// Obtener todas las reservaciones de un usuario (historial completo)
+// Obtener todas las reservaciones (Historial)
 router.get("/usuario/:userId", async (req, res) => {
   try {
-    const reservations = await Reservation.find({ userId: req.params.userId })
-      .populate("slotId") // para mostrar info del cajón
+    const reservations = await Reservation.find({
+      userId: req.params.userId,
+    })
+      .populate("slotId")
       .sort({ fechaInicio: -1 });
 
     res.json(reservations);
@@ -53,12 +77,12 @@ router.get("/usuario/:userId", async (req, res) => {
   }
 });
 
-// Obtener solo reservaciones activas de un usuario
+// Obtener solo las activas
 router.get("/usuario/:userId/activas", async (req, res) => {
   try {
     const reservations = await Reservation.find({
       userId: req.params.userId,
-      estado: "activa",
+      estado: { $in: ["reservado", "activa"] },   // 🔥 CORREGIDO
     }).populate("slotId");
 
     res.json(reservations);

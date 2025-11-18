@@ -5,7 +5,7 @@ import { connectDB } from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import parkingRoutes from "./routes/parking.js";
 import reservationsRoutes from "./routes/reservations.js";
-import spotRoutes from "./routes/spotRoutes.js";
+import qrScanRoutes from "./routes/qrScan.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -19,7 +19,7 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/parking", parkingRoutes);
 app.use("/api/reservations", reservationsRoutes);
-app.use("/api/spots", spotRoutes);
+app.use("/api/qr/scan", qrScanRoutes);
 
 // Conexión DB
 connectDB();

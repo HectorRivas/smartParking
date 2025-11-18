@@ -4,38 +4,37 @@ import ScreenWrapper from "../../components/ScreenWrapper";
 import QRCode from "react-native-qrcode-svg";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CardInfo from "../../components/CardInfo";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function QRScreen() {
+  const isFocused = useIsFocused(); // 👈 PARA REFRESCAR AL VOLVER
   const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(true);
   const [reservation, setReservation] = useState(null);
-
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        // Cargar usuario
-        const userData = await AsyncStorage.getItem("user");
-        if (userData) {
-          const user = JSON.parse(userData);
-          setUserName(user.nombre.split(" ")[0]); // primer nombre
-        }
-
-        // Cargar reservación activa
-        const resData = await AsyncStorage.getItem("reservation");
-        if (resData) {
-          setReservation(JSON.parse(resData));
-        }
-      } catch (error) {
-        console.error(error);
-        Alert.alert("Error", "No se pudo cargar la información.");
-      } finally {
-        setLoading(false);
+  const loadData = async () => {
+    try {
+      setLoading(true); // Cargar usuario
+      const userData = await AsyncStorage.getItem("user");
+      if (userData) {
+        const user = JSON.parse(userData);
+        setUserName(user.nombre.split(" ")[0]);
       }
-    };
-
-    loadData();
-  }, []);
-
+      // Cargar reservación activa
+      const resData = await AsyncStorage.getItem("reservation");
+      setReservation(resData ? JSON.parse(resData) : null);
+    } catch (error) {
+      console.error(error);
+      Alert.alert("Error", "No se pudo cargar la información.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  // 🔄 Recargar cada que la pantalla obtiene el foco
+  useEffect(() => {
+    if (isFocused) {
+      loadData();
+    }
+  }, [isFocused]);
   if (loading) {
     return (
       <ScreenWrapper backgroundColor="#F2F2F2">
@@ -46,7 +45,6 @@ export default function QRScreen() {
       </ScreenWrapper>
     );
   }
-
   if (!reservation) {
     return (
       <ScreenWrapper>
@@ -56,16 +54,12 @@ export default function QRScreen() {
       </ScreenWrapper>
     );
   }
-
   return (
     <ScreenWrapper>
       <View className="flex-1 items-center w-full pt-8 mt-4">
-        {/* Saludo */}
         <Text className="text-[#073A59] text-2xl font-inter-bold mb-8">
           Hola, {userName || "Usuario"}
         </Text>
-
-        {/* Card QR */}
         <CardInfo title="Tu Código QR">
           <View className="items-center justify-center">
             <View
@@ -75,7 +69,7 @@ export default function QRScreen() {
                 borderRadius: 24,
                 justifyContent: "center",
                 alignItems: "center",
-                marginBottom: 16,
+                margin: 16,
               }}
             >
               <QRCode

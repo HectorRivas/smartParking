@@ -22,6 +22,8 @@ export default function CardInfo({
           shadowOpacity: 0.1,
           shadowRadius: 4,
           elevation: 3,
+          marginLeft: "auto",
+          marginRight: "auto",
         },
         style,
       ]}

@@ -1,5 +1,15 @@
 import React, { useState, useRef } from "react";
-import { View, Text, Pressable, TextInput, KeyboardAvoidingView, ScrollView, Platform, Alert, Image, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  TextInput,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
+  Alert,
+  Image,
+} from "react-native";
 import { useRouter, Link } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ScreenWrapper from "../components/ScreenWrapper";
@@ -14,8 +24,8 @@ export default function LoginScreen() {
   const [correo, setCorreo] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [loading, setLoading] = useState(false);
-  
-  const passwordRef = useRef(); 
+
+  const passwordRef = useRef();
 
   const handleLogin = async () => {
     if (!correo || !contraseña) {
@@ -24,7 +34,7 @@ export default function LoginScreen() {
     }
 
     try {
-  setLoading(true);
+      setLoading(true);
       const response = await fetch(
         "http://192.168.100.81:4000/api/users/login",
         {
@@ -35,6 +45,9 @@ export default function LoginScreen() {
       );
 
       const data = await response.json();
+
+      console.log("DATA:", data);
+
 
       if (!response.ok) {
         Alert.alert("Error", data.message || "Correo o contraseña incorrectos");
@@ -49,13 +62,19 @@ export default function LoginScreen() {
           nombre: data.user.nombre,
           correo: data.user.correo,
           telefono: data.user.telefono,
+          isAdmin: data.user.isAdmin || false, // ✅ Guardamos si es admin
         })
       );
 
-      // Redirigir a QR
-      router.replace("/(tabs)/qr");
+      console.log("Usuario admin:", data.user.isAdmin);
+      // Redirigir según tipo de usuario
+      if (data.user.isAdmin) {
+        router.replace("/scan"); // pantalla exclusiva de escaneo QR
+      } else {
+        router.replace("/(tabs)/qr"); // pantalla normal de usuarios
+      }
     } catch (error) {
-      // Error de conexión al servidor
+      console.error(error);
       Alert.alert("Error", "No se pudo conectar al servidor");
     } finally {
       setLoading(false);
@@ -86,6 +105,7 @@ export default function LoginScreen() {
               Iniciar sesión
             </Text>
           </View>
+
           {/* Formulario */}
           <InputField
             label="Correo"
@@ -108,7 +128,6 @@ export default function LoginScreen() {
             icon="lock-closed-outline"
             returnKeyType="done"
             onSubmitEditing={handleLogin}
-
           />
 
           <PrimaryButton
