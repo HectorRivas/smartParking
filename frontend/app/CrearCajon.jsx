@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
 import ScreenWrapper from "../components/ScreenWrapper";
+const IP_ADDRESS = process.env.EXPO_PUBLIC_API_URL;
 
 export default function CrearCajon() {
   const [numero, setNumero] = useState("");
@@ -14,7 +15,7 @@ export default function CrearCajon() {
 
     setLoading(true);
     try {
-      const res = await fetch("http://192.168.100.81:4000/api/parking", {
+      const res = await fetch(`${IP_ADDRESS}/api/parking`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

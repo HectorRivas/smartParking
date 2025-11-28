@@ -8,7 +8,6 @@ import reservationsRoutes from "./routes/reservations.js";
 import qrScanRoutes from "./routes/qrScan.js";
 import dotenv from "dotenv";
 dotenv.config();
-
 const app = express();
 
 // Middlewares

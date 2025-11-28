@@ -5,6 +5,7 @@ import * as Haptics from "expo-haptics";
 import ScreenWrapper from "../components/ScreenWrapper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+const IP_ADDRESS = process.env.EXPO_PUBLIC_API_URL;
 
 export default function ScanQR() {
   const [permission, requestPermission] = useCameraPermissions();
@@ -56,7 +57,7 @@ export default function ScanQR() {
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
 
     try {
-      const res = await fetch("http://192.168.100.81:4000/api/qr/scan", {
+      const res = await fetch(`${IP_ADDRESS}/api/qr/scan`, {
 
         method: "POST",
         headers: { "Content-Type": "application/json" },

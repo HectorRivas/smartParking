@@ -7,10 +7,11 @@ import CardInfo from "../../components/CardInfo";
 import { useIsFocused } from "@react-navigation/native";
 
 export default function QRScreen() {
-  const isFocused = useIsFocused(); // 👈 PARA REFRESCAR AL VOLVER
+  const isFocused = useIsFocused(); // PARA REFRESCAR AL VOLVER
   const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(true);
   const [reservation, setReservation] = useState(null);
+
   const loadData = async () => {
     try {
       setLoading(true); // Cargar usuario
@@ -21,7 +22,23 @@ export default function QRScreen() {
       }
       // Cargar reservación activa
       const resData = await AsyncStorage.getItem("reservation");
-      setReservation(resData ? JSON.parse(resData) : null);
+
+      // AsyncStorage devuelve un string o null; parsear antes de acceder
+      let reservation = null;
+      if (resData) {
+        try {
+          reservation = JSON.parse(resData);
+          // Ahora puedes acceder a `reservation.estado`, `reservation.qrCode`, etc.
+          console.log("reservation.estado", reservation.estado);
+          if (reservation.estado === "completada"){
+            await AsyncStorage.removeItem("reservation");
+          }
+        } catch (e) {
+          console.warn("Error parseando 'reservation' desde AsyncStorage:", e);
+        }
+      }
+
+      setReservation(reservation);
     } catch (error) {
       console.error(error);
       Alert.alert("Error", "No se pudo cargar la información.");
@@ -29,7 +46,7 @@ export default function QRScreen() {
       setLoading(false);
     }
   };
-  // 🔄 Recargar cada que la pantalla obtiene el foco
+  // Recargar cada que la pantalla obtiene el foco
   useEffect(() => {
     if (isFocused) {
       loadData();

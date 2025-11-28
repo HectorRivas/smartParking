@@ -10,6 +10,8 @@ import ScreenWrapper from "../components/ScreenWrapper";
 import InputField from "../components/InputField";
 import PrimaryButton from "../components/PrimaryButton";
 
+const IP_ADDRESS = process.env.EXPO_PUBLIC_API_URL;
+
 // Pantalla: Register
 // Permite crear una nueva cuenta de usuario.
 export default function RegisterScreen() {
@@ -51,7 +53,7 @@ function RegisterContent() {
 
     try {
       const response = await fetch(
-        "http://192.168.100.81:4000/api/users/register",
+        `${IP_ADDRESS}/api/users/register`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

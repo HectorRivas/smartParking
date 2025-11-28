@@ -5,6 +5,7 @@ import ScreenWrapper from "../../components/ScreenWrapper";
 import CardInfo from "../../components/CardInfo";
 import SecondaryButton from "../../components/SecondaryButton";
 import ConfirmModal from "../../components/ConfirmModal";
+const IP_ADDRESS = process.env.EXPO_PUBLIC_API_URL;
 
 export default function Reservar() {
   const [slots, setSlots] = useState([]);
@@ -29,7 +30,7 @@ export default function Reservar() {
           const reservation = JSON.parse(reservationData);
           // 🔹 Verificar estado REAL en backend
           const check = await fetch(
-            `http://192.168.100.81:4000/api/parking/reservacion/${reservation._id}`
+            `${IP_ADDRESS}/api/parking/reservacion/${reservation._id}`
           );
           if (check.status === 200) {
             const resJson = await check.json();
@@ -56,7 +57,7 @@ export default function Reservar() {
   const fetchSlotsLibres = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://192.168.100.81:4000/api/parking/libres");
+      const res = await fetch(`${IP_ADDRESS}/api/parking/libres`);
       const data = await res.json();
       setSlots(data);
     } catch (err) {
@@ -84,7 +85,7 @@ export default function Reservar() {
     setModalVisible(false);
     try {
       const res = await fetch(
-        `http://192.168.100.81:4000/api/parking/reservar/${selectedSlotId}`,
+        `${IP_ADDRESS}/api/parking/reservar/${selectedSlotId}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

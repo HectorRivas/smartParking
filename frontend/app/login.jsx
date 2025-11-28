@@ -17,6 +17,9 @@ import QR from "../assets/QR4.png";
 import InputField from "../components/InputField";
 import PrimaryButton from "../components/PrimaryButton";
 
+const IP_ADDRESS = process.env.EXPO_PUBLIC_API_URL;
+
+
 // Pantalla: Login
 // Maneja autenticación del usuario y navegación al flujo principal.
 export default function LoginScreen() {
@@ -35,8 +38,9 @@ export default function LoginScreen() {
 
     try {
       setLoading(true);
+      console.log("IP_ADDRESS:", IP_ADDRESS);
       const response = await fetch(
-        "http://192.168.100.81:4000/api/users/login",
+        `${IP_ADDRESS}/api/users/login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

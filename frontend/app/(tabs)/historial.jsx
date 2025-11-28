@@ -4,9 +4,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import ScreenWrapper from "../../components/ScreenWrapper";
 import CardInfo from "../../components/CardInfo";
 import { useIsFocused } from "@react-navigation/native";
+const IP_ADDRESS = process.env.EXPO_PUBLIC_API_URL;
 
 export default function HistorialScreen() {
-  const isFocused = useIsFocused(); // 👈 REFRESCA AL VOLVER
+  const isFocused = useIsFocused(); // REFRESCA AL VOLVER
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState(null);
@@ -27,7 +28,7 @@ export default function HistorialScreen() {
     try {
       setLoading(true);
       const res = await fetch(
-        `http://192.168.100.81:4000/api/reservations/usuario/${userId}`
+        `${IP_ADDRESS}/api/reservations/usuario/${userId}`
       );
       const data = await res.json();
       setReservations(data);
@@ -43,7 +44,7 @@ export default function HistorialScreen() {
     loadUser();
   }, []);
 
-  // 🔄 Recargar historial cuando vuelva a estar en foco
+  // Recargar historial cuando vuelva a estar en foco
   useEffect(() => {
     if (isFocused) {
       fetchReservations();
@@ -85,7 +86,21 @@ export default function HistorialScreen() {
                   Cajón: {item.slotId?.numero || "Desconocido"}
                 </Text>
                 <Text>Ubicación: {item.slotId?.ubicacion || "-"}</Text>
-                <Text>Estado: {item.estado}</Text>
+                {item.estado === "activa" && (
+                  <Text>
+                    Estado: <Text className="text-green-500">{item.estado}</Text>
+                  </Text>
+                )}
+                {item.estado === "reservado" && (
+                  <Text>
+                    Estado: <Text className="text-yellow-500">{item.estado}</Text>
+                  </Text>
+                )}
+                {item.estado === "completada" && (
+                  <Text>
+                    Estado: <Text className="text-[#3F83BF]">{item.estado}</Text>
+                  </Text>
+                )}
                 <Text>
                   Desde: {new Date(item.fechaInicio).toLocaleString()}
                 </Text>
@@ -103,3 +118,4 @@ export default function HistorialScreen() {
     </ScreenWrapper>
   );
 }
+
